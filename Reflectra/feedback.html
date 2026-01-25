@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflectra | Adaptive Feedback System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Feedback Page Specific */
+        .feedback-hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feedback-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: pulseRing 2s infinite;
+        }
+
+        .pulse-ring-1 {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .pulse-ring-2 {
+            width: 200px;
+            height: 200px;
+            top: 30%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Feedback System */
+        .feedback-system {
+            padding: 80px 0;
+        }
+
+        .feedback-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .mentor-side {
+            position: sticky;
+            top: 120px;
+        }
+
+        .mentor-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(91, 106, 225, 0.15);
+            text-align: center;
+        }
+
+        .mentor-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 4rem;
+            color: white;
+            animation: mentorFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes mentorFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .mentor-card h2 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .mentor-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .mentor-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .mentor-stat {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 15px;
+        }
+
+        .mentor-stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .mentor-stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Feedback Flow */
+        .feedback-flow {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(91, 106, 225, 0.15);
+        }
+
+        .feedback-step {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #f0f3ff;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .feedback-step:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .feedback-step:nth-child(1) { animation-delay: 0.2s; }
+        .feedback-step:nth-child(2) { animation-delay: 0.4s; }
+        .feedback-step:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .step-header h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+
+        .feedback-message {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .feedback-message p {
+            color: var(--dark);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .feedback-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .agree-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .disagree-btn {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .disagreement-form {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .disagreement-form textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e0e4f7;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        /* Learning System */
+        .learning-system {
+            padding: 80px 0;
+            background: var(--mentor-bg);
+        }
+
+        .learning-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .learning-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .learning-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .learning-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .learning-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .learning-card p {
+            color: var(--gray);
+        }
+
+        /* Demo CTA */
+        .feedback-demo-cta {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .feedback-demo-cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        @media (max-width: 992px) {
+            .feedback-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .mentor-side {
+                position: static;
+            }
+            
+            .feedback-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Reflectra</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="feedback.html" class="active">Feedback</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+                <a href="signin.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="feedback-hero">
+        <div class="pulse-ring pulse-ring-1"></div>
+        <div class="pulse-ring pulse-ring-2"></div>
+        <div class="container">
+            <h1>Adaptive Mentor Feedback</h1>
+            <p>Experience our revolutionary feedback system that learns from your perspective and adapts to provide truly personalized guidance.</p>
+            <a href="#feedback-flow" class="btn" style="background: white; color: var(--primary); padding: 15px 40px; font-size: 1.1rem;">
+                <i class="fas fa-comments"></i> Try Feedback System
+            </a>
+        </div>
+    </section>
+
+    <!-- Feedback System -->
+    <section class="feedback-system" id="feedback-flow">
+        <div class="container">
+            <div class="feedback-container">
+                <div class="mentor-side">
+                    <div class="mentor-card">
+                        <div class="mentor-avatar-large">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h2>Your Reflectra Mentor</h2>
+                        <p>I'm here to provide non-judgmental feedback based on your patterns and preferences. The more we interact, the better I understand your unique approach.</p>
+                        
+                        <div class="mentor-stats">
+                            <div class="mentor-stat">
+                                <div class="mentor-stat-value">94%</div>
+                                <div class="mentor-stat-label">User Satisfaction</div>
+                            </div>
+                            <div class="mentor-stat">
+                                <div class="mentor-stat-value">2.3k</div>
+                                <div class="mentor-stat-label">Patterns Learned</div>
+                            </div>
+                            <div class="mentor-stat">
+                                <div class="mentor-stat-value">87%</div>
+                                <div class="mentor-stat-label">Adaptation Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-flow">
+                    <div class="feedback-step">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3>Activity Analysis</h3>
+                        </div>
+                        <p>Based on your recent activity, I've analyzed your productivity patterns over the last week.</p>
+                        
+                        <div class="feedback-message">
+                            <p>"I notice you planned 2 hours for emails on Monday but actually spent 3.5 hours. This isn't necessarily bad, but let's explore if this is a recurring pattern."</p>
+                        </div>
+                        
+                        <div class="feedback-actions">
+                            <button class="action-btn agree-btn" onclick="handleAgree(1)">
+                                <i class="fas fa-thumbs-up"></i> I Agree, This Is Accurate
+                            </button>
+                            <button class="action-btn disagree-btn" onclick="showDisagreement(1)">
+                                <i class="fas fa-thumbs-down"></i> I See It Differently
+                            </button>
+                        </div>
+                        
+                        <div class="disagreement-form" id="disagreement-1">
+                            <p><strong>Help me understand:</strong> What's your perspective on this pattern?</p>
+                            <textarea rows="3" placeholder="e.g., The extra time was due to an urgent client issue that needed attention..."></textarea>
+                            <button class="btn btn-primary" onclick="submitDisagreement(1)">
+                                <i class="fas fa-paper-plane"></i> Submit & Help Me Learn
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="feedback-step">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3>Energy Pattern Recognition</h3>
+                        </div>
+                        <p>Your energy levels show interesting patterns that affect your productivity.</p>
+                        
+                        <div class="feedback-message">
+                            <p>"Your energy peaks consistently between 9-11 AM. However, you often schedule routine tasks during this time. Have you considered scheduling your most challenging work during these peak hours?"</p>
+                        </div>
+                        
+                        <div class="feedback-actions">
+                            <button class="action-btn agree-btn" onclick="handleAgree(2)">
+                                <i class="fas fa-thumbs-up"></i> Great Insight!
+                            </button>
+                            <button class="action-btn disagree-btn" onclick="showDisagreement(2)">
+                                <i class="fas fa-thumbs-down"></i> Not Quite Right
+                            </button>
+                        </div>
+                        
+                        <div class="disagreement-form" id="disagreement-2">
+                            <p><strong>Help me understand:</strong> What's your perspective on this pattern?</p>
+                            <textarea rows="3" placeholder="e.g., I prefer to warm up with routine tasks before tackling complex work..."></textarea>
+                            <button class="btn btn-primary" onclick="submitDisagreement(2)">
+                                <i class="fas fa-paper-plane"></i> Submit & Help Me Learn
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="feedback-step">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3>Adaptive Suggestion</h3>
+                        </div>
+                        <p>Based on our previous interactions, here's a personalized suggestion:</p>
+                        
+                        <div class="feedback-message">
+                            <p>"Last time you mentioned preferring to tackle creative work in the afternoon. Given that and your energy patterns, how about trying: Morning (9-11): Email & routine tasks, Afternoon (2-4): Creative deep work, Late afternoon (4-5): Meetings & collaboration?"</p>
+                        </div>
+                        
+                        <div class="feedback-actions">
+                            <button class="action-btn agree-btn" onclick="handleAgree(3)">
+                                <i class="fas fa-check-circle"></i> Let's Try This
+                            </button>
+                            <button class="action-btn disagree-btn" onclick="showDisagreement(3)">
+                                <i class="fas fa-times-circle"></i> Needs Adjustment
+                            </button>
+                        </div>
+                        
+                        <div class="disagreement-form" id="disagreement-3">
+                            <p><strong>Help me understand:</strong> What adjustments would work better?</p>
+                            <textarea rows="3" placeholder="e.g., I need my afternoons free for team meetings..."></textarea>
+                            <button class="btn btn-primary" onclick="submitDisagreement(3)">
+                                <i class="fas fa-paper-plane"></i> Submit & Help Me Learn
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning System -->
+    <section class="learning-system">
+        <div class="container">
+            <h2 class="section-title">How the System Learns</h2>
+            <div class="learning-cards">
+                <div class="learning-card">
+                    <div class="learning-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Pattern Recognition</h3>
+                    <p>Continuously analyzes your activities, energy levels, and focus patterns to identify meaningful trends and insights.</p>
+                </div>
+                <div class="learning-card">
+                    <div class="learning-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Feedback Integration</h3>
+                    <p>Incorporates your agreement/disagreement responses to refine future suggestions and feedback.</p>
+                </div>
+                <div class="learning-card">
+                    <div class="learning-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Continuous Adaptation</h3>
+                    <p>Evolves with you over time, adjusting recommendations based on your changing priorities and circumstances.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo CTA -->
+    <section class="feedback-demo-cta">
+        <div class="container">
+            <h2>Ready to Experience Adaptive Feedback?</h2>
+            <p style="color: var(--gray); max-width: 600px; margin: 0 auto 30px;">
+                Try the complete feedback system with voice interaction and personalized insights.
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a href="demo.html" class="btn btn-primary" style="padding: 15px 40px;">
+                    <i class="fas fa-play-circle"></i> Try Full Demo
+                </a>
+                <a href="signin.html" class="btn btn-outline" style="padding: 15px 40px;">
+                    <i class="fas fa-user-plus"></i> Create Free Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reflectra</h3>
+                    <p style="color: #ccc; margin-bottom: 20px;">Experience the future of personalized productivity feedback.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Learn More</h3>
+                    <ul>
+                        <li><a href="features.html">How It Works</a></li>
+                        <li><a href="demo.html">Interactive Demo</a></li>
+                        <li><a href="blog.html">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Get Started</h3>
+                    <ul>
+                        <li><a href="signin.html">Free Trial</a></li>
+                        <li><a href="demo.html">Try Without Account</a></li>
+                        <li><a href="#">Schedule Demo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Reflectra. <a href="index.html" style="color: #6DDBB4;">Return to Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function showDisagreement(step) {
+            document.getElementById(`disagreement-${step}`).style.display = 'block';
+            document.getElementById(`disagreement-${step}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function submitDisagreement(step) {
+            const textarea = document.querySelector(`#disagreement-${step} textarea`);
+            if (textarea.value.trim()) {
+                showNotification('Thank you! Your feedback helps me adapt and improve.', 'success');
+                document.getElementById(`disagreement-${step}`).style.display = 'none';
+                
+                // Update mentor message to show learning
+                const mentorMessages = [
+                    "Thanks for sharing that perspective. I've updated my understanding and will adjust future suggestions accordingly.",
+                    "Interesting insight! I've incorporated this into my learning model. Our next interaction will reflect this understanding.",
+                    "Your perspective is valuable. I'm updating my algorithms to better align with your unique approach to productivity."
+                ];
+                
+                const randomMessage = mentorMessages[Math.floor(Math.random() * mentorMessages.length)];
+                document.querySelectorAll('.feedback-message')[step-1].innerHTML = `<p>${randomMessage}</p>`;
+                
+                // Clear textarea
+                textarea.value = '';
+            } else {
+                showNotification('Please share your perspective before submitting.', 'error');
+            }
+        }
+
+        function handleAgree(step) {
+            const agreeMessages = [
+                "Great! I'll continue building on this understanding.",
+                "Perfect! This confirms my insights. Let's continue working together.",
+                "Excellent! I'll use this confirmation to refine future recommendations."
+            ];
+            
+            const randomMessage = agreeMessages[Math.floor(Math.random() * agreeMessages.length)];
+            showNotification(randomMessage, 'success');
+            
+            // Animate the button
+            const btn = event.target.closest('.agree-btn');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Feedback Saved';
+            btn.style.backgroundColor = 'var(--success)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.backgroundColor = '';
+            }, 2000);
+        }
+
+        // Initialize with animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animation to feedback steps
+            const steps = document.querySelectorAll('.feedback-step');
+            steps.forEach((step, index) => {
+                step.style.animationDelay = `${0.2 + (index * 0.2)}s`;
+            });
+        });
+    </script>
+</body>
+</html>

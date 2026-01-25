@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflectra | Blog & Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Blog Page Specific */
+        .blog-hero {
+            padding: 100px 0 60px;
+            background: linear-gradient(135deg, #2A2D43 0%, #3A3F5F 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 60px 18px 25px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Blog Grid */
+        .blog-section {
+            padding: 80px 0;
+        }
+
+        .blog-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: #f0f3ff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px var(--shadow);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(91, 106, 225, 0.2);
+        }
+
+        .blog-image {
+            height: 220px;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+        }
+
+        .blog-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .blog-card-content {
+            padding: 30px;
+        }
+
+        .blog-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #e0e4f7;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .blog-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-read-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background: var(--mentor-bg);
+            padding: 80px 0;
+            margin-bottom: 80px;
+        }
+
+        .featured-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .featured-image {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 30px;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .featured-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .featured-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            padding: 80px 0;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            border-radius: 30px;
+            margin: 80px auto;
+            max-width: 1000px;
+        }
+
+        .newsletter-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 18px 25px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 18px 35px;
+            border-radius: 50px;
+            border: none;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .featured-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Reflectra</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+                <a href="signin.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Productivity Insights & Resources</h1>
+            <p>Explore articles, case studies, and research on mindful productivity, behavioral science, and intentional living.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search articles, topics, or authors...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Post -->
+    <section class="featured-post">
+        <div class="container">
+            <div class="featured-container">
+                <div class="featured-image">
+                    <div style="width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 5rem;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                </div>
+                <div class="featured-content">
+                    <span class="featured-badge">FEATURED ARTICLE</span>
+                    <h2>The Science Behind Intentional Productivity</h2>
+                    <p>How behavioral psychology and cognitive science principles can transform your approach to work and life. Learn about the research behind Reflectra's mentor system.</p>
+                    <a href="#" class="btn btn-primary" style="padding: 15px 30px;">
+                        <i class="fas fa-book-open"></i> Read Full Article
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog-section">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+            
+            <div class="blog-categories">
+                <button class="category-btn active">All Topics</button>
+                <button class="category-btn">Productivity</button>
+                <button class="category-btn">Behavioral Science</button>
+                <button class="category-btn">Case Studies</button>
+                <button class="category-btn">How-To Guides</button>
+                <button class="category-btn">Research</button>
+            </div>
+            
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-image-content">
+                            <span class="blog-category">Productivity</span>
+                            <h3 style="color: white;">Overcoming Planning Fallacy with Reflectra</h3>
+                        </div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Overcoming Planning Fallacy with Reflectra</h3>
+                        <p>Learn how our mentor system helps users overcome the common tendency to underestimate task completion times through adaptive feedback.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar"></i> Nov 15, 2023</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-image-content">
+                            <span class="blog-category">Case Study</span>
+                            <h3 style="color: white;">How a Startup CEO Improved Focus by 40%</h3>
+                        </div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>How a Startup CEO Improved Focus by 40%</h3>
+                        <p>Real-world case study showing how Reflectra's pattern recognition helped a busy founder optimize their schedule and energy management.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar"></i> Nov 10, 2023</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-image-content">
+                            <span class="blog-category">Behavioral Science</span>
+                            <h3 style="color: white;">The Psychology of Non-Judgmental Feedback</h3>
+                        </div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>The Psychology of Non-Judgmental Feedback</h3>
+                        <p>Exploring why traditional productivity tools often backfire and how non-judgmental systems like Reflectra create sustainable behavior change.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar"></i> Nov 5, 2023</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-image-content">
+                            <span class="blog-category">How-To Guide</span>
+                            <h3 style="color: white;">Mastering Voice-Based Productivity Logging</h3>
+                        </div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Mastering Voice-Based Productivity Logging</h3>
+                        <p>A comprehensive guide to using voice inputs effectively with Reflectra for seamless activity tracking and reflection.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar"></i> Oct 28, 2023</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 4 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-image-content">
+                            <span class="blog-category">Research</span>
+                            <h3 style="color: white;">Energy Management vs. Time Management</h3>
+                        </div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Energy Management vs. Time Management</h3>
+                        <p>New research shows why tracking energy impact may be more important than tracking time for sustainable productivity.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar"></i> Oct 20, 2023</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 8 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-image-content">
+                            <span class="blog-category">Productivity</span>
+                            <h3 style="color: white;">Building a Reflection Habit That Sticks</h3>
+                        </div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Building a Reflection Habit That Sticks</h3>
+                        <p>Practical strategies for incorporating daily reflection into your routine using Reflectra's mentor system.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar"></i> Oct 15, 2023</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn btn-primary" style="padding: 15px 40px;">
+                    <i class="fas fa-redo"></i> Load More Articles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for the latest insights on productivity, behavioral science, and Reflectra updates.</p>
+            
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">
+                    <i class="fas fa-paper-plane"></i> Subscribe
+                </button>
+            </form>
+            
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">
+                No spam. Unsubscribe anytime.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reflectra Blog</h3>
+                    <p style="color: #ccc; margin-bottom: 20px;">Insights for intentional productivity and mindful work.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Productivity</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Research</a></li>
+                        <li><a href="#">How-To Guides</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="demo.html">Interactive Demo</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Reflectra Blog. <a href="index.html" style="color: #6DDBB4;">Return to Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Blog search functionality
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            
+            searchBtn.addEventListener('click', function() {
+                if (searchInput.value.trim()) {
+                    showNotification(`Searching for: "${searchInput.value}"`, 'info');
+                }
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && searchInput.value.trim()) {
+                    showNotification(`Searching for: "${searchInput.value}"`, 'info');
+                }
+            });
+            
+            // Category filtering
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.textContent;
+                    if (category !== 'All Topics') {
+                        showNotification(`Filtering by: ${category}`, 'info');
+                    }
+                });
+            });
+            
+            // Newsletter form
+            const newsletterForm = document.getElementById('newsletterForm');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input').value;
+                showNotification(`Thank you for subscribing with: ${email}`, 'success');
+                this.reset();
+            });
+            
+            // Blog card click handlers
+            document.querySelectorAll('.blog-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('a')) {
+                        const title = this.querySelector('h3').textContent;
+                        showNotification(`Opening article: "${title}"`, 'info');
+                    }
+                });
+            });
+            
+            // Load more button
+            document.querySelector('.btn.btn-primary').addEventListener('click', function() {
+                showNotification('Loading more articles...', 'info');
+                // In a real app, this would load more content
+                setTimeout(() => {
+                    showNotification('More articles loaded!', 'success');
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

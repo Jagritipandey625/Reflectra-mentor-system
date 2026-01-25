@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflectra | Features</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Features Page Specific */
+        .hero-features {
+            padding: 100px 0 60px;
+            background: var(--mentor-bg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-features h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .hero-features p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: floatShape 20s infinite linear;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--secondary);
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px var(--shadow);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(91, 106, 225, 0.2);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .feature-benefits {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-benefits h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-benefits ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-benefits li {
+            padding: 8px 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-benefits li i {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--mentor-bg);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: 0 10px 20px rgba(91, 106, 225, 0.2);
+        }
+
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .step-content p {
+            color: var(--gray);
+        }
+
+        /* CTA */
+        .features-cta {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .features-cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .features-cta p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        @media (max-width: 768px) {
+            .steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .steps::before {
+                display: none;
+            }
+            
+            .hero-features h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Reflectra</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html" class="active">Features</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+                <a href="signin.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-features">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container">
+            <h1>Powerful Features for Mindful Productivity</h1>
+            <p>Discover how Reflectra combines behavioral science with adaptive technology to transform your productivity journey.</p>
+            <a href="demo.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                <i class="fas fa-play-circle"></i> Try Interactive Demo
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Intelligent Planning</h3>
+                    <p>Set meaningful daily, weekly, and monthly priorities with our intelligent planning system that prevents overwhelm and promotes focus.</p>
+                    <div class="feature-benefits">
+                        <h4><i class="fas fa-check-circle"></i> Key Benefits:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Priority-based task organization</li>
+                            <li><i class="fas fa-check"></i> Time estimation suggestions</li>
+                            <li><i class="fas fa-check"></i> Energy level consideration</li>
+                            <li><i class="fas fa-check"></i> Progress tracking</li>
+                        </ul>
+                    </div>
+                    <a href="demo.html#planning" class="btn btn-outline" style="margin-top: 20px; width: 100%;">
+                        <i class="fas fa-rocket"></i> Try Planning Now
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Activity Tracking & Analytics</h3>
+                    <p>Log your actual activities with time spent and energy impact. Get real-time analytics on focus, alignment, and productivity patterns.</p>
+                    <div class="feature-benefits">
+                        <h4><i class="fas fa-chart-bar"></i> Analytics Include:</h4>
+                        <ul>
+                            <li><i class="fas fa-bullseye"></i> Focus score calculation</li>
+                            <li><i class="fas fa-bolt"></i> Energy impact tracking</li>
+                            <li><i class="fas fa-exchange-alt"></i> Intention vs. reality alignment</li>
+                            <li><i class="fas fa-history"></i> Historical pattern analysis</li>
+                        </ul>
+                    </div>
+                    <a href="demo.html#tracking" class="btn btn-outline" style="margin-top: 20px; width: 100%;">
+                        <i class="fas fa-chart-pie"></i> View Analytics Demo
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Adaptive Mentor Feedback</h3>
+                    <p>Receive personalized, non-judgmental feedback from your AI mentor. The system learns from your disagreements and adapts over time.</p>
+                    <div class="feature-benefits">
+                        <h4><i class="fas fa-robot"></i> Mentor Capabilities:</h4>
+                        <ul>
+                            <li><i class="fas fa-brain"></i> Pattern recognition</li>
+                            <li><i class="fas fa-sync-alt"></i> Adaptive learning</li>
+                            <li><i class="fas fa-heart"></i> Non-judgmental approach</li>
+                            <li><i class="fas fa-lightbulb"></i> Actionable insights</li>
+                        </ul>
+                    </div>
+                    <a href="feedback.html" class="btn btn-outline" style="margin-top: 20px; width: 100%;">
+                        <i class="fas fa-comment-dots"></i> Experience Feedback
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3>Voice Interaction System</h3>
+                    <p>Speak your plans or listen to feedback using natural voice interactions. Perfect for hands-free reflection sessions and accessibility.</p>
+                    <div class="feature-benefits">
+                        <h4><i class="fas fa-volume-up"></i> Voice Features:</h4>
+                        <ul>
+                            <li><i class="fas fa-microphone"></i> Voice-to-text for plans</li>
+                            <li><i class="fas fa-volume-up"></i> Text-to-speech for feedback</li>
+                            <li><i class="fas fa-headset"></i> Hands-free operation</li>
+                            <li><i class="fas fa-universal-access"></i> Accessibility focused</li>
+                        </ul>
+                    </div>
+                    <a href="demo.html#voice" class="btn btn-outline" style="margin-top: 20px; width: 100%;">
+                        <i class="fas fa-microphone"></i> Try Voice Features
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Behavioral Pattern Recognition</h3>
+                    <p>Discover hidden patterns in your productivity, energy fluctuations, and distraction triggers with advanced behavioral analysis.</p>
+                    <div class="feature-benefits">
+                        <h4><i class="fas fa-chart-network"></i> Pattern Detection:</h4>
+                        <ul>
+                            <li><i class="fas fa-clock"></i> Peak productivity times</li>
+                            <li><i class="fas fa-battery-full"></i> Energy level patterns</li>
+                            <li><i class="fas fa-mouse-pointer"></i> Distraction triggers</li>
+                            <li><i class="fas fa-trend-up"></i> Progress trends</li>
+                        </ul>
+                    </div>
+                    <a href="demo.html#patterns" class="btn btn-outline" style="margin-top: 20px; width: 100%;">
+                        <i class="fas fa-search"></i> Discover Your Patterns
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Human-Centric Design</h3>
+                    <p>Built with psychology principles to encourage sustainable productivity without burnout, guilt, or self-judgment.</p>
+                    <div class="feature-benefits">
+                        <h4><i class="fas fa-user-friends"></i> Design Principles:</h4>
+                        <ul>
+                            <li><i class="fas fa-balance-scale"></i> Balanced approach</li>
+                            <li><i class="fas fa-hands-helping"></i> Supportive guidance</li>
+                            <li><i class="fas fa-shield-alt"></i> Judgment-free zone</li>
+                            <li><i class="fas fa-seedling"></i> Sustainable habits</li>
+                        </ul>
+                    </div>
+                    <a href="signin.html" class="btn btn-primary" style="margin-top: 20px; width: 100%;">
+                        <i class="fas fa-user-plus"></i> Join Now Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How Reflectra Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Plan Your Intentions</h3>
+                        <p>Set daily, weekly, or monthly priorities with our intuitive planning interface.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Track Reality</h3>
+                        <p>Log your actual activities with time spent and energy impact ratings.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Receive Feedback</h3>
+                        <p>Get adaptive mentor feedback comparing intentions with reality.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Grow & Improve</h3>
+                        <p>Use insights to refine your approach and build better habits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="features-cta">
+        <div class="container">
+            <h2>Ready to Transform Your Productivity?</h2>
+            <p>Join thousands of users who have improved their focus, energy management, and work-life alignment with Reflectra.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                <a href="signin.html" class="btn btn-primary" style="padding: 15px 40px;">
+                    <i class="fas fa-user-plus"></i> Start Free Trial
+                </a>
+                <a href="demo.html" class="btn btn-outline" style="padding: 15px 40px;">
+                    <i class="fas fa-play"></i> Try Demo First
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reflectra</h3>
+                    <p style="color: #ccc; margin-bottom: 20px;">Transform your productivity with intelligent mentorship.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="features.html">All Features</a></li>
+                        <li><a href="demo.html">Interactive Demo</a></li>
+                        <li><a href="feedback.html">Feedback System</a></li>
+                        <li><a href="blog.html">Blog & Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Get Started</h3>
+                    <ul>
+                        <li><a href="signin.html">Sign Up Free</a></li>
+                        <li><a href="demo.html">Try Demo</a></li>
+                        <li><a href="contact.html">Contact Sales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Reflectra. <a href="index.html" style="color: #6DDBB4;">Return to Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

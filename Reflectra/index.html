@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflectra | Mentor-Based Productivity System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 500px;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(91, 106, 225, 0.15);
+            background: white;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+            padding: 20px;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 180px;
+            top: 0;
+            right: 20px;
+            animation-delay: 0s;
+            border-left: 5px solid var(--accent);
+        }
+
+        .floating-element:nth-child(2) {
+            width: 250px;
+            height: 150px;
+            bottom: 60px;
+            right: 0;
+            animation-delay: 2s;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .floating-element:nth-child(3) {
+            width: 280px;
+            height: 200px;
+            top: 150px;
+            left: 0;
+            animation-delay: 4s;
+            border-left: 5px solid var(--primary);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-element h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .floating-element p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Features Preview */
+        .features-preview {
+            padding: 80px 0;
+            background: var(--mentor-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            border-radius: 30px;
+            margin: 80px auto;
+            max-width: 1000px;
+        }
+
+        .cta-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+
+        .cta-btn:hover {
+            background: var(--light);
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .floating-element {
+                position: relative;
+                margin: 0 auto 30px;
+                right: auto !important;
+                left: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Reflectra</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+                <a href="demo.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container" style="display: flex; align-items: center;">
+            <div class="hero-content">
+                <h1>Your Personal Productivity Mentor</h1>
+                <p>Reflectra helps you align intentions with actions through adaptive, non-judgmental feedback. Track your daily, weekly, and monthly plans while gaining insights into your behavioral patterns and energy impact.</p>
+                <a href="demo.html" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.1rem;">
+                    <i class="fas fa-play-circle"></i> Start Reflection Journey
+                </a>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-element">
+                    <h3>Daily Plan</h3>
+                    <p>"Complete project proposal by 2 PM, then focus on learning new framework."</p>
+                    <div class="progress-bar" style="height: 6px; background: #e0e4f7; border-radius: 3px; margin-top: 15px;">
+                        <div style="width: 75%; height: 100%; background: var(--accent); border-radius: 3px;"></div>
+                    </div>
+                </div>
+                <div class="floating-element">
+                    <h3>Weekly Insights</h3>
+                    <p>Your focus peaks on Tuesday mornings. Schedule deep work accordingly.</p>
+                    <div class="progress-bar" style="height: 6px; background: #e0e4f7; border-radius: 3px; margin-top: 15px;">
+                        <div style="width: 60%; height: 100%; background: var(--primary); border-radius: 3px;"></div>
+                    </div>
+                </div>
+                <div class="floating-element">
+                    <h3>Mentor Feedback</h3>
+                    <p>"I notice you planned 2 hours for emails but actually spent 3.5 hours. Let's explore why."</p>
+                    <div class="progress-bar" style="height: 6px; background: #e0e4f7; border-radius: 3px; margin-top: 15px;">
+                        <div style="width: 40%; height: 100%; background: var(--secondary); border-radius: 3px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Preview -->
+    <section class="features-preview">
+        <div class="container">
+            <h2 class="section-title">How Reflectra Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Plan with Intention</h3>
+                    <p>Set daily, weekly, and monthly priorities without feeling overwhelmed.</p>
+                    <a href="features.html#planning" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.9rem;">Learn more</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Track & Compare</h3>
+                    <p>Log your actual activities with time spent and energy impact.</p>
+                    <a href="features.html#tracking" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.9rem;">Learn more</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Adaptive Feedback</h3>
+                    <p>Receive non-judgmental mentor-style feedback that learns from you.</p>
+                    <a href="features.html#feedback" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.9rem;">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="container">
+        <div class="cta-section">
+            <h2>Ready to Transform Your Productivity?</h2>
+            <p>Join thousands who have improved their focus, energy, and alignment with Reflectra's mentor-based system.</p>
+            <a href="signin.html" class="btn cta-btn">Start Free Trial</a>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">No credit card required • 14-day free trial</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reflectra</h3>
+                    <p style="color: #ccc; margin-bottom: 20px;">Your personal productivity mentor for intentional living and sustainable achievement.</p>
+                    <div style="display: flex; gap: 15px; font-size: 1.2rem;">
+                        <a href="#" style="color: white;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" style="color: white;"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="demo.html">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Reflectra. All rights reserved. Designed with ❤️ for mindful productivity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

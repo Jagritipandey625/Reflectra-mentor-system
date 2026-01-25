@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflectra | Interactive Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .demo-section {
+            padding: 80px 0;
+        }
+
+        .demo-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .demo-left {
+            flex: 1;
+        }
+
+        .demo-right {
+            flex: 1;
+        }
+
+        .mentor-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 3rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(91, 106, 225, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(91, 106, 225, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(91, 106, 225, 0); }
+        }
+
+        .mentor-speech {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            margin-bottom: 30px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mentor-speech::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 60px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid white;
+        }
+
+        .voice-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .voice-status {
+            font-size: 0.9rem;
+            color: var(--gray);
+            padding: 8px 15px;
+            background: #f5f7ff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .listening .voice-status {
+            color: var(--primary);
+            background: rgba(91, 106, 225, 0.1);
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .demo-card h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-card h3 i {
+            color: var(--primary);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 2px solid #e0e4f7;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .planning-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e4f7;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .voice-tutorial {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            animation: slideInDown 0.5s;
+            position: relative;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .voice-tutorial h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .voice-tutorial ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .voice-tutorial li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .voice-tutorial li i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .close-tutorial {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Voice Input Field */
+        .voice-input-container {
+            position: relative;
+        }
+
+        .voice-input-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .voice-input-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .voice-input-btn.listening {
+            background: var(--secondary);
+            animation: pulse 1.5s infinite;
+        }
+
+        .input-with-voice input {
+            padding-right: 50px !important;
+        }
+
+        .activity-log {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .activity-item {
+            padding: 15px;
+            border-bottom: 1px solid #e0e4f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .activity-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e0e4f7;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        @media (max-width: 992px) {
+            .demo-container {
+                flex-direction: column;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Reflectra</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="demo.html" class="active">Demo</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+                <a href="signin.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Demo Section -->
+    <section class="demo-section">
+        <div class="container">
+            <h2 class="section-title">Interactive Demo</h2>
+            <div class="demo-container">
+                <div class="demo-left">
+                    <div class="mentor-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="mentor-speech" id="mentor-speech">
+                        <p id="mentor-message">Hello! I'm your Reflectra mentor. Let's start by planning your day. What are your top 3 priorities for today? You can type them or use voice input by clicking the microphone button.</p>
+                        <div class="voice-controls">
+                            <button class="voice-btn" id="speak-btn" title="Hear mentor message">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <div class="voice-status" id="voice-status">
+                                <i class="fas fa-microphone-slash"></i>
+                                Voice input ready
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="voice-tutorial" id="voice-tutorial">
+                        <button class="close-tutorial" onclick="this.parentNode.style.display='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <h4><i class="fas fa-microphone-alt"></i> Voice Input Guide</h4>
+                        <p>You can use voice input for faster logging. Here's how:</p>
+                        <ul>
+                            <li><i class="fas fa-microphone"></i> <strong>Click microphone icons</strong> next to input fields</li>
+                            <li><i class="fas fa-volume-up"></i> <strong>Speak clearly</strong> after the "Listening..." message</li>
+                            <li><i class="fas fa-save"></i> <strong>Auto-save</strong> happens for priority inputs</li>
+                            <li><i class="fas fa-keyboard"></i> <strong>Keyboard fallback</strong> available if voice fails</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3><i class="fas fa-calendar-check"></i> Plan Your Day</h3>
+                        <div class="planning-tabs">
+                            <div class="tab active" data-tab="daily">Daily</div>
+                            <div class="tab" data-tab="weekly">Weekly</div>
+                            <div class="tab" data-tab="monthly">Monthly</div>
+                        </div>
+                        
+                        <div class="tab-content active" id="daily-tab">
+                            <div class="input-group">
+                                <label for="priority1">Priority 1</label>
+                                <div class="voice-input-container input-with-voice">
+                                    <input type="text" id="priority1" placeholder="e.g., Complete project proposal">
+                                    <button class="voice-input-btn" data-target="priority1">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="priority2">Priority 2</label>
+                                <div class="voice-input-container input-with-voice">
+                                    <input type="text" id="priority2" placeholder="e.g., Exercise for 30 minutes">
+                                    <button class="voice-input-btn" data-target="priority2">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="priority3">Priority 3</label>
+                                <div class="voice-input-container input-with-voice">
+                                    <input type="text" id="priority3" placeholder="e.g., Read 20 pages of book">
+                                    <button class="voice-input-btn" data-target="priority3">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="energy">Expected Energy Level</label>
+                                <select id="energy">
+                                    <option value="high">High Energy</option>
+                                    <option value="medium" selected>Medium Energy</option>
+                                    <option value="low">Low Energy</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="save-plan" style="width: 100%;">
+                                <i class="fas fa-save"></i> Save Daily Plan
+                            </button>
+                        </div>
+                        
+                        <div class="tab-content" id="weekly-tab">
+                            <div class="input-group">
+                                <label for="weekly-goal">Weekly Focus Goal</label>
+                                <input type="text" id="weekly-goal" placeholder="e.g., Improve coding skills">
+                            </div>
+                            <div class="input-group">
+                                <label for="weekly-metrics">Success Metrics</label>
+                                <textarea id="weekly-metrics" rows="3" placeholder="What will indicate you had a successful week?"></textarea>
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%;">Save Weekly Plan</button>
+                        </div>
+                        
+                        <div class="tab-content" id="monthly-tab">
+                            <div class="input-group">
+                                <label for="monthly-theme">Monthly Theme</label>
+                                <input type="text" id="monthly-theme" placeholder="e.g., Deep Work & Creativity">
+                            </div>
+                            <div class="input-group">
+                                <label for="monthly-outcomes">Desired Outcomes</label>
+                                <textarea id="monthly-outcomes" rows="3" placeholder="What do you want to achieve by month end?"></textarea>
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%;">Save Monthly Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-right">
+                    <div class="demo-card">
+                        <h3><i class="fas fa-history"></i> Log Your Activity</h3>
+                        <div class="input-group">
+                            <label for="activity">What did you actually do?</label>
+                            <div class="voice-input-container input-with-voice">
+                                <input type="text" id="activity" placeholder="e.g., Worked on project proposal">
+                                <button class="voice-input-btn" data-target="activity">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="time-spent">Time Spent (hours)</label>
+                            <input type="number" id="time-spent" min="0.5" max="24" step="0.5" value="2">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="actual-energy">Actual Energy After</label>
+                            <select id="actual-energy">
+                                <option value="high">High - Feel energized</option>
+                                <option value="medium" selected>Medium - Neutral</option>
+                                <option value="low">Low - Feel drained</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="log-activity" style="width: 100%;">
+                            <i class="fas fa-plus-circle"></i> Log Activity
+                        </button>
+                        
+                        <div class="activity-log" id="activity-log">
+                            <!-- Activities will appear here -->
+                        </div>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3><i class="fas fa-chart-bar"></i> Your Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value" id="focus-score">78%</div>
+                                <div class="metric-label">Focus Score</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="energy-impact">+12%</div>
+                                <div class="metric-label">Energy Impact</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="alignment">64%</div>
+                                <div class="metric-label">Alignment</div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Focus Trend</label>
+                            <div class="progress-bar">
+                                <div id="focus-bar" class="progress-fill" style="width: 78%; background: var(--primary);"></div>
+                            </div>
+                            <p style="color: var(--gray); font-size: 0.9rem;">Your focus is highest in the morning. Try scheduling complex tasks before noon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reflectra</h3>
+                    <p style="color: #ccc; margin-bottom: 20px;">Experience the full mentor system with voice interaction and adaptive feedback.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Ready for More?</h3>
+                    <ul>
+                        <li><a href="signin.html">Create Free Account</a></li>
+                        <li><a href="features.html">View All Features</a></li>
+                        <li><a href="feedback.html">Try Feedback System</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Reflectra. Demo version. <a href="index.html" style="color: #6DDBB4;">Return to Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Enhanced Voice Recognition with Mock Fallback
+        class VoiceRecognitionSystem {
+            constructor() {
+                this.recognition = null;
+                this.isListening = false;
+                this.isSupported = this.checkSupport();
+                this.init();
+            }
+            
+            checkSupport() {
+                return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+            }
+            
+            init() {
+                if (this.isSupported) {
+                    try {
+                        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                        this.recognition = new SpeechRecognition();
+                        this.recognition.continuous = false;
+                        this.recognition.interimResults = false;
+                        this.recognition.lang = 'en-US';
+                        this.recognition.maxAlternatives = 1;
+                        
+                        this.recognition.onstart = () => {
+                            this.isListening = true;
+                            this.updateUI(true);
+                            showNotification('🎤 Listening... Speak now', 'info');
+                        };
+                        
+                        this.recognition.onresult = (event) => {
+                            const transcript = event.results[0][0].transcript;
+                            if (this.callback) {
+                                this.callback(transcript);
+                            }
+                        };
+                        
+                        this.recognition.onerror = (event) => {
+                            console.log('Voice recognition error:', event.error);
+                            this.handleError(event.error);
+                        };
+                        
+                        this.recognition.onend = () => {
+                            this.isListening = false;
+                            this.updateUI(false);
+                        };
+                        
+                        console.log('Voice recognition initialized');
+                        return true;
+                    } catch (error) {
+                        console.error('Failed to initialize voice:', error);
+                        this.isSupported = false;
+                        return false;
+                    }
+                }
+                return false;
+            }
+            
+            handleError(error) {
+                const errorMessages = {
+                    'not-allowed': 'Microphone access denied. Please allow permissions.',
+                    'audio-capture': 'No microphone detected.',
+                    'network': 'Network error. Please check connection.',
+                    'no-speech': 'No speech detected. Please try again.',
+                    'aborted': 'Voice recognition aborted.',
+                    'service-not-allowed': 'Speech service not allowed.'
+                };
+                
+                const message = errorMessages[error] || 'Voice recognition failed. Please try again.';
+                showNotification(`🎤 ${message}`, 'error');
+                
+                // Fallback to mock voice if permission denied
+                if (error === 'not-allowed') {
+                    this.useMockVoice();
+                }
+            }
+            
+            useMockVoice() {
+                const mockResponses = [
+                    "Complete project proposal by 2 PM",
+                    "Exercise for 30 minutes",
+                    "Read 20 pages of book",
+                    "Work on coding challenge",
+                    "Team meeting preparation",
+                    "Client follow-up emails",
+                    "Learn new JavaScript framework",
+                    "Plan weekly schedule",
+                    "Review project milestones"
+                ];
+                
+                const mockResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+                
+                showNotification('🎤 Using mock voice input for demo', 'info');
+                
+                // Simulate listening
+                this.updateUI(true);
+                setTimeout(() => {
+                    if (this.callback) {
+                        this.callback(mockResponse);
+                        showNotification(`🎤 Mock input: "${mockResponse}"`, 'success');
+                    }
+                    this.updateUI(false);
+                }, 1500);
+            }
+            
+            start(callback) {
+                if (this.isListening) {
+                    this.recognition.stop();
+                    return;
+                }
+                
+                this.callback = callback;
+                
+                if (this.recognition && this.isSupported) {
+                    this.recognition.start();
+                } else {
+                    // Fallback to mock voice
+                    this.useMockVoice();
+                }
+            }
+            
+            updateUI(listening) {
+                const statusElement = document.getElementById('voice-status');
+                if (statusElement) {
+                    if (listening) {
+                        statusElement.innerHTML = '<i class="fas fa-microphone"></i> Listening...';
+                        statusElement.style.color = 'var(--primary)';
+                        statusElement.style.background = 'rgba(91, 106, 225, 0.1)';
+                    } else {
+                        statusElement.innerHTML = '<i class="fas fa-microphone-slash"></i> Voice input ready';
+                        statusElement.style.color = 'var(--gray)';
+                        statusElement.style.background = '#f5f7ff';
+                    }
+                }
+                
+                // Update microphone buttons
+                document.querySelectorAll('.voice-input-btn').forEach(btn => {
+                    if (listening && btn.classList.contains('listening')) {
+                        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+                        btn.style.background = 'var(--secondary)';
+                    } else if (listening) {
+                        // Only update the button that was clicked
+                        btn.classList.remove('listening');
+                    } else {
+                        btn.innerHTML = '<i class="fas fa-microphone"></i>';
+                        btn.style.background = 'var(--primary)';
+                        btn.classList.remove('listening');
+                    }
+                });
+            }
+            
+            speak(text) {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 1.0;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(utterance);
+                    
+                    utterance.onstart = () => {
+                        showNotification('🔊 Mentor is speaking...', 'info');
+                    };
+                    
+                    utterance.onend = () => {
+                        showNotification('🔊 Finished speaking', 'success', 2000);
+                    };
+                    
+                    return true;
+                }
+                return false;
+            }
+        }
+        
+        // Demo-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize voice system
+            const voiceSystem = new VoiceRecognitionSystem();
+            
+            // Load saved data
+            let activities = JSON.parse(localStorage.getItem('reflectraActivities') || '[]');
+            let dailyPlan = JSON.parse(localStorage.getItem('reflectraDailyPlan') || '{}');
+            
+            // Initialize tabs
+            function initTabs() {
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const tabGroup = this.closest('.planning-tabs');
+                        tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const tabId = this.getAttribute('data-tab');
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                            if (content.id === `${tabId}-tab`) {
+                                content.classList.add('active');
+                            }
+                        });
+                    });
+                });
+            }
+            
+            // Load saved plan
+            function loadSavedPlan() {
+                if (dailyPlan.priority1) {
+                    document.getElementById('priority1').value = dailyPlan.priority1;
+                    document.getElementById('priority2').value = dailyPlan.priority2;
+                    document.getElementById('priority3').value = dailyPlan.priority3;
+                    document.getElementById('energy').value = dailyPlan.energy || 'medium';
+                }
+            }
+            
+            // Display activities
+            function displayActivities() {
+                const activityLog = document.getElementById('activity-log');
+                if (activities.length === 0) {
+                    activityLog.innerHTML = '<p style="color: var(--gray); text-align: center; padding: 20px;">No activities logged yet. Log your first activity above!</p>';
+                } else {
+                    activityLog.innerHTML = activities.map((activity, index) => `
+                        <div class="activity-item">
+                            <div class="activity-info">
+                                <h4>${activity.name}</h4>
+                                <div class="activity-meta">
+                                    <span><i class="far fa-clock"></i> ${activity.time} hours</span>
+                                    <span><i class="fas fa-battery-${activity.energy === 'high' ? 'full' : activity.energy === 'medium' ? 'half' : 'quarter'}"></i> ${activity.energy}</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;" onclick="deleteActivity(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `).join('');
+                }
+            }
+            
+            // Save plan
+            document.getElementById('save-plan').addEventListener('click', function() {
+                const priority1 = document.getElementById('priority1').value;
+                const priority2 = document.getElementById('priority2').value;
+                const priority3 = document.getElementById('priority3').value;
+                const energy = document.getElementById('energy').value;
+                
+                if (!priority1 || !priority2 || !priority3) {
+                    showNotification('Please fill in all three priorities', 'error');
+                    return;
+                }
+                
+                dailyPlan = { 
+                    priority1, 
+                    priority2, 
+                    priority3, 
+                    energy, 
+                    date: new Date().toISOString() 
+                };
+                localStorage.setItem('reflectraDailyPlan', JSON.stringify(dailyPlan));
+                
+                document.getElementById('mentor-message').innerHTML = `
+                    Great! I've saved your priorities:<br><br>
+                    <strong>1. ${priority1}</strong><br>
+                    <strong>2. ${priority2}</strong><br>
+                    <strong>3. ${priority3}</strong><br><br>
+                    Now, as you go through your day, log your actual activities to compare with your plan.
+                    Use the microphone button for quick voice logging!
+                `;
+                
+                showNotification('Daily plan saved successfully!', 'success');
+                
+                // Animate the mentor avatar
+                const avatar = document.querySelector('.mentor-avatar');
+                avatar.style.transform = 'scale(1.1)';
+                setTimeout(() => avatar.style.transform = 'scale(1)', 300);
+            });
+            
+            // Log activity
+            document.getElementById('log-activity').addEventListener('click', function() {
+                const activity = document.getElementById('activity').value;
+                const timeSpent = document.getElementById('time-spent').value;
+                const actualEnergy = document.getElementById('actual-energy').value;
+                
+                if (!activity) {
+                    showNotification('Please describe your activity', 'error');
+                    return;
+                }
+                
+                const newActivity = {
+                    name: activity,
+                    time: timeSpent,
+                    energy: actualEnergy,
+                    timestamp: new Date().toISOString()
+                };
+                
+                activities.unshift(newActivity);
+                localStorage.setItem('reflectraActivities', JSON.stringify(activities));
+                
+                // Update metrics
+                updateMetrics();
+                
+                // Clear input
+                document.getElementById('activity').value = '';
+                document.getElementById('time-spent').value = '2';
+                document.getElementById('actual-energy').value = 'medium';
+                
+                // Display activities
+                displayActivities();
+                
+                // Generate feedback
+                generateFeedback(newActivity);
+                
+                showNotification('Activity logged! Check mentor feedback.', 'success');
+            });
+            
+            // Update metrics
+            function updateMetrics() {
+                if (activities.length === 0) return;
+                
+                let focusScore = 78;
+                let energyImpact = 12;
+                let alignment = 64;
+                
+                if (activities.length > 0) {
+                    const recentActivity = activities[0];
+                    focusScore = Math.min(95, focusScore + Math.floor(Math.random() * 10) - 5);
+                    energyImpact = recentActivity.energy === 'high' ? 15 : 
+                                  recentActivity.energy === 'medium' ? 5 : -10;
+                    alignment = Math.min(90, alignment + Math.floor(Math.random() * 15) - 5);
+                }
+                
+                document.getElementById('focus-score').textContent = `${focusScore}%`;
+                document.getElementById('energy-impact').textContent = `${energyImpact > 0 ? '+' : ''}${energyImpact}%`;
+                document.getElementById('alignment').textContent = `${alignment}%`;
+                
+                // Update progress bar
+                const focusBar = document.getElementById('focus-bar');
+                focusBar.style.width = `${focusScore}%`;
+                focusBar.style.backgroundColor = 
+                    focusScore > 70 ? 'var(--primary)' : 
+                    focusScore > 50 ? 'var(--warning)' : 'var(--secondary)';
+            }
+            
+            // Generate feedback
+            function generateFeedback(activity) {
+                const feedbackMessages = [
+                    `I notice you spent ${activity.time} hours on "${activity.name}". How did this align with your planned priorities?`,
+                    `After ${activity.name}, you reported ${activity.energy} energy. ${activity.energy === 'high' ? 'Great! Energizing activities boost productivity.' : 'Consider scheduling draining tasks when you have recovery time.'}`,
+                    `Interesting timing! You logged "${activity.name}" at ${new Date(activity.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}. Are there patterns in when you're most productive?`,
+                    `Based on "${activity.name}", I'm detecting that ${activity.energy === 'high' ? 'energizing' : 'draining'} tasks are affecting your focus. Would you like to discuss optimization strategies?`
+                ];
+                
+                const randomFeedback = feedbackMessages[Math.floor(Math.random() * feedbackMessages.length)];
+                document.getElementById('mentor-message').innerHTML = `<p>${randomFeedback}</p>`;
+            }
+            
+            // Voice input functionality
+            document.querySelectorAll('.voice-input-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const targetId = this.getAttribute('data-target');
+                    const targetInput = document.getElementById(targetId);
+                    
+                    // Mark this button as active
+                    this.classList.add('listening');
+                    
+                    // Start voice recognition
+                    voiceSystem.start(function(transcript) {
+                        if (targetInput) {
+                            targetInput.value = transcript;
+                            
+                            // Auto-save if it's a priority
+                            if (targetId.startsWith('priority')) {
+                                const saveBtn = document.getElementById('save-plan');
+                                if (saveBtn) {
+                                    setTimeout(() => {
+                                        saveBtn.click();
+                                    }, 1000);
+                                }
+                            }
+                            
+                            showNotification(`🎤 Voice input saved to ${targetId.replace('priority', 'Priority ')}`, 'success');
+                        }
+                    });
+                });
+            });
+            
+            // Speak button
+            document.getElementById('speak-btn').addEventListener('click', function() {
+                const message = document.getElementById('mentor-message').textContent;
+                if (!voiceSystem.speak(message)) {
+                    showNotification('🔊 Text-to-speech not available in this browser', 'error');
+                }
+            });
+            
+            // Global delete function
+            window.deleteActivity = function(index) {
+                if (confirm('Are you sure you want to delete this activity?')) {
+                    activities.splice(index, 1);
+                    localStorage.setItem('reflectraActivities', JSON.stringify(activities));
+                    displayActivities();
+                    updateMetrics();
+                    showNotification('Activity deleted', 'success');
+                }
+            };
+            
+            // Initialize everything
+            initTabs();
+            loadSavedPlan();
+            displayActivities();
+            updateMetrics();
+            
+            // Show voice tutorial on first visit
+            if (!localStorage.getItem('voiceTutorialShown')) {
+                setTimeout(() => {
+                    showNotification('🎤 Tip: Click microphone icons to use voice input!', 'info', 5000);
+                    localStorage.setItem('voiceTutorialShown', 'true');
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
